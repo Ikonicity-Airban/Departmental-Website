@@ -1,0 +1,105 @@
+<div class="my-10 p-6 md:p-16">
+  <hr />
+  <div class="h1 my-4">
+    <h1
+      class="text-2xl font-semibold leading-normal text-indigo-800 cursor-pointer border-l-2 border-indigo-700 dark:text-indigo-400 pl-4">
+      Welcome to your Portal Dashboard
+      {{!-- <span class="material-icons">face</span> --}}
+    </h1>
+    <h1 class="text-4xl text-gray-700 border-l-2 font-bold dark:text-gray-300 border-indigo-300 pl-4"
+      title="{{user.name}}">
+      {{user.name}}
+    </h1>
+  </div>
+  <hr />
+  <!-- Course Overview -->
+  <div class="sm:grid sm:grid-cols-2 md:grid-cols-3 gap-4 mx-auto text-gray-600 pt-6">
+    <div class=" shadow-lg rounded-lg p-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4 dark:text-white">
+        Course Overview
+      </h2>
+      <ul>
+        {{#each courses}}
+        <li class="border-b border-indigo-100 py-2 mb-2 border hover:bg-indigo-100 duration-[300ms] h-auto">
+          <h3 class="text-lg font-semibold">
+            {{this.title}}
+          </h3>
+          <p class="text-gray-700">
+            Grade: {{this.grade}}
+          </p>
+          <p class="text-gray-700">
+            Assignments: {{this.assignments}}
+          </p>
+          <p class="text-gray-700">
+            Upcoming Deadlines: {{this.deadlines}}
+          </p>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <!-- Schedule -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        Schedule
+      </h2>
+      {{! Calendar view of student's schedule }}
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        Progress Tracker
+      </h2>
+      {{! Overview of student's progress towards degree requirements }}
+    </div>
+
+    <!-- Task Management -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        Task Management
+      </h2>
+      <ul>
+        {{#each tasks}}
+        <li class="mb-1">
+          <span>
+            {{this}}
+          </span>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <!-- Communication -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        Communication
+      </h2>
+      {{! Section for internal communication with instructors or other students }}
+    </div>
+
+    <!-- Resources -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        Resources
+      </h2>
+      {{! Access to academic advising, career services, tutoring services, etc. }}
+    </div>
+
+    <!-- News Feed -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        News Feed
+      </h2>
+      {{! A news feed that aggregates relevant news articles or updates from the university or college }}
+    </div>
+
+    <!-- Analytics -->
+    <div class="shadow-lg rounded-lg p-6 mt-6 border hover:bg-indigo-100 duration-[300ms] h-auto">
+      <h2 class="text-lg font-200 mb-4">
+        Analytics
+      </h2>
+      {{! Detailed analytics on student's academic performance over time }}
+    </div>
+  </div>
+</div>

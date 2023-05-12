@@ -1,0 +1,57 @@
+<header
+  class="flex items-center justify-between sm:p-4 flex-wrap px-6 pb-4 text-sm bg-bg-color transition-all min-h-fit duration-300">
+  <div class="flex items-center mt-3 sm:mt-0 order-1">
+    {{!-- <button class=" text-lg text-primary">
+      <img src="/images/svg/menu.svg" alt="Back to home" class="w-7">
+    </button> --}}
+    <button aria-controls="logo-sidebar" data-toggle-nav type="button"
+      class="inline-flex items-center text-sm p-2 mr-1 text-white rounded-lg md:hidden hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary hover:text-white-700">
+      <span class="sr-only">
+        Open sidebar
+      </span>
+      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg">
+        <path clip-rule="evenodd" fill-rule="evenodd"
+          d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+        </path>
+      </svg>
+    </button>
+    <a class="logo flex-1 md:flex-none mx-2" href="/">
+      <img src="images/title_logo.png" alt="logo" class="h-14" />
+    </a>
+  </div>
+  <nav class="md:flex-1 w-full justify-center md:flex md:order-1 order-2 overflow-hidden rounded-lg" data-nav>
+    <ul class="justify-between md:space-x-5 text-white flex flex-col md:flex-row md:h-fit">
+      <li class="mx-2 p-2">
+        <a href="/">
+          Home
+        </a>
+      </li>
+      <li class="mx-2 p-2">
+        <a href="/courses">
+          Courses
+        </a>
+      </li>
+      <li class="mx-2 p-2">
+        <a href="/students">
+          Students
+        </a>
+      </li>
+      <li class="mx-2 p-2">
+        <a href="/instructors">
+          Instructors
+        </a>
+      </li>
+    </ul>
+  </nav>
+  {{#eq title "Login"}}
+  <div class="px-6 flex-[0.175] bg-red-800  order-1">
+  </div>
+  {{else}}
+  <div class="login hidden sm:flex order-1">
+    <a href="/login" class="button">
+      Login
+    </a>
+  </div>
+  {{/eq}}
+</header>

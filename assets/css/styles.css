@@ -1,0 +1,268 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Vollkorn:ital,wght@0,400;0,500;0,600;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url("/fonts/Montserrat-Medium.ttf");
+}
+:root {
+  --family1: "Montserrat", "Roboto", sans-serif;
+  --header: "Vollkorn", serif;
+  --primary: #5e06f7;
+  --black: #333;
+  --bg-dark: #1b2738;
+  --white: #fff;
+  --bg-color: #817ff8;
+  --off-white-bg: rgb(247, 247, 247);
+  --border: 1px solid whitesmoke;
+  --shadow: 1px 1px 1px #0001;
+  --button-gradient: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 1%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: var(--family1); */
+  list-style: none;
+  user-select: none;
+  font-family: var(--family1);
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background: var(--off-white-bg);
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  
+}
+body.dark::after {
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  z-index: -1;
+  content: '';
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(2px);
+  background: linear-gradient(-15deg, var(--bg-color), var(--primary), orange);
+}
+body.dark {
+  background-color: rgb(27, 39, 56);
+  text-shadow: 1px 1px 1px inherit;
+  color: var(--white);
+}
+
+body.dark section.header::before {
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 80' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 1C19.5523 2 32.2291 3 51.5 5C104.5 11 200 25 300 39C400 53 500 66 600 61C700 55 800 31 900 18C987.526 3 1085.36 -1 1150 0C1169.54 -1 1180.49 0 1200 1V80H1150C1100 80 1000 80 900 80C800 80 700 80 600 80C500 80 400 80 300 80C200 80 100 80 50 80H0V1.98128Z' fill='%231b2738'/></svg>");
+  }
+
+.button {
+  padding: 0.5rem 2.5rem;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 3rem;
+  font-weight: 500;
+}
+/* Header section */
+header > nav {
+  transition: all 250ms;
+}
+
+header > nav.show {
+  height: fit-content;
+  padding: 10px;
+  transition: all .25s;
+  border: 1px solid whitesmoke;
+  background: #fff1;
+}
+
+section.header {
+  /* height: 80vh; */
+  background-color: var(--bg-color);
+  background-image: url("/images/header.svg");
+  background-size: 40vw;
+  background-repeat: no-repeat;
+  position: relative;
+  background-position: 80%;
+  z-index: 100;
+  transition: all 250ms;
+}
+
+section.header::before {
+  content: "";
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  bottom: -0.3%;
+  left: 0;
+  background-size: auto;
+  background-repeat: repeat no-repeat;
+  background-position: 41vw bottom;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 80' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 1C19.5523 2 32.2291 3 51.5 5C104.5 11 200 25 300 39C400 53 500 66 600 61C700 55 800 31 900 18C987.526 3 1085.36 -1 1150 0C1169.54 -1 1180.49 0 1200 1V80H1150C1100 80 1000 80 900 80C800 80 700 80 600 80C500 80 400 80 300 80C200 80 100 80 50 80H0V1.98128Z' fill='%23FFFFFF'/></svg>");
+}
+
+@media (max-width: 850px) {
+  .wave-container::before {
+    height: 30px;
+  }
+}
+
+/*? main */
+
+section.main {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;  
+}
+
+section.footer {
+  background: var(--bg-color);
+  padding: 1rem;
+  color: var(--white);
+  bottom: 0;
+}
+
+/* login page */
+.login_page {
+  background: var(--off-white-bg);
+}
+
+section.dashboard {
+  background-image: url("images/dashboard.svg");
+}
+
+
+header.is-sticky {
+  top: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  animation: slideDown 0.35s ease-out;
+}
+
+header.bg-change {
+  background: var(--bg-color);
+}
+
+header ul > li {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+header ul li::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: -100%;
+  background: var(--white);
+  transition: all 250ms;
+}
+
+header ul > li:hover::after {
+  left: 0;
+}
+
+.FOF
+{
+  background-image: url("/images/404.svg");
+  background-repeat: no-repeat;
+  background-size: 60vw;
+  background-position: center;
+}
+.ERROR
+{
+  background-image: url("/images/error.svg");
+  background-repeat: no-repeat;
+  background-size: 60vw;
+  background-position: center;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bg-dark)
+  }
+  section.header::before {
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 80' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 1C19.5523 2 32.2291 3 51.5 5C104.5 11 200 25 300 39C400 53 500 66 600 61C700 55 800 31 900 18C987.526 3 1085.36 -1 1150 0C1169.54 -1 1180.49 0 1200 1V80H1150C1100 80 1000 80 900 80C800 80 700 80 600 80C500 80 400 80 300 80C200 80 100 80 50 80H0V1.98128Z' fill='%231b2738'/></svg>");
+  }
+}
+@media (max-width: 448px) {
+  section.header {
+    background-image: none;
+}
+}
+/* material design */
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* .material-icons.orange600 { color: #FB8C00; } */
