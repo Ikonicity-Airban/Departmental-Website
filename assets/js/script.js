@@ -12,7 +12,7 @@ const bg_change = 'bg-change'
 document.addEventListener('scroll', (e) => {
     // makes the header to become sticky
     const offset = window.pageYOffset
-    offset > header.getBoundingClientRect().height * 2 ?
+    offset > header.getBoundingClientRect().height - 10/*  + document.querySelector('footer').clientHeight + 50  */ ?
         header.classList.add(sticky) : header.classList.remove(sticky)
     header_section && offset > header_section.getBoundingClientRect().height - 30 ?
         header.classList.add(bg_change) : header.classList.remove(bg_change)
@@ -21,7 +21,6 @@ document.addEventListener('scroll', (e) => {
 
 scroller.onclick = function () {
     window.scrollTo(0, 0)
-    // document.querySelector('body').style['scroll-behavior'] = 'smooth'
 }
 
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -80,6 +79,15 @@ const goBack = () => history.back()// Whenever the user explicitly chooses dark 
 // }
 
 if (navBotton) navBotton.onclick = function () {
-    // navEl.classList.toggle('hidden')
+    navEl.classList.toggle('h-0')
     navEl.classList.toggle('show')
+}
+
+document.onscroll = () => {
+    // console.log('hello');
+    if (navEl.classList.contains('show')) {
+        console.log(true);
+        navEl.classList.toggle('show')
+        navEl.classList.toggle('h-0')
+    }
 }

@@ -35,11 +35,13 @@
 a {
   text-decoration: none;
 }
-
+html
+{
+  scroll-behavior: smooth;
+}
 body {
   background: var(--off-white-bg);
   min-height: 100vh;
-  scroll-behavior: smooth;
   
 }
 body.dark::after {

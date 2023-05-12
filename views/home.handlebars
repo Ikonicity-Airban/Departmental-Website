@@ -1,8 +1,15 @@
 <section class="header font-san h-[50vh] sm:h-[80vh]">
   {{> header}}
-  <div class="header w-full sm:w-1/2 p-4 sm:p-6 space-y-4 my-4 py-3 ">
+  <div class="header w-full sm:w-1/2 p-4 sm:p-6 space-y-4 my-4 py-3 z-10">
     <h1 class="md:text-5xl text-2xl text-white"> Department of {{department.name}}</h1>
     <h3 class="md:text-4xl text-xl  text-gray-700">University of Unicef</h3>
+  </div>
+  <div class="w-full flex items-center justify-center p-6 -z-10">
+    <div class="sm:hidden mx-auto">
+      <a href="/login" class="button">
+        Login
+      </a>
+    </div>
   </div>
 </section>
 
