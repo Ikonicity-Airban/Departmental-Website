@@ -116,7 +116,7 @@
     </div>
   </aside>
 
-  <div class="p-4 pt-10 md:ml-64">
+  <div class="p-4 pt-10 md:ml-64 backdrop-blur-sm">
 
     {{{body}}}
   </div>
@@ -124,6 +124,7 @@
   <div class="w-10 h-10 ring-2 self-end toggle-mode absolute bottom-10 right-10 rounded cursor-pointer"
     onclick="toggleMode()">
   </div>
+  {{> toast}}
 
   <script src="js/script.js"></script>
   {{!--

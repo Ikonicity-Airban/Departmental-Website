@@ -1,4 +1,5 @@
-import User from "../models/user.model.js";
+import User from "../models/student.model.js";
+import renderPage from "../utils/renderer.helper.js";
 
 //log in
 export async function Login(req, res) {
@@ -9,13 +10,18 @@ export async function Login(req, res) {
     return res.sendStatus(403);
   }
   const user = await User.findOne({ email });
-  console.log("🚀 ~ file: auth.controller.js:12 ~ Login ~ user:", user);
-
   if (!user) return res.sendStatus(404);
   else if (user.password !== password) return res.sendStatus(404);
-  res.json({ msg: "account created", user });
-}
+  // RenderLogin(req, res, {
+  //   msg: "success",
+  //   user,
+  // });
+  res.locals.user = user.toJSON();
+  res.locals.msg = "success";
+  console.log(res.locals);
 
+  res.redirect("dashboard/student");
+}
 //sign up
 export async function CreateAccount(req, res) {
   const { email, password } = req.body;
@@ -37,9 +43,10 @@ export function isAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-export function RenderLogin(req, res) {
+export function RenderLogin(req, res, msg = {}) {
   res.render("login", {
     title: "Login",
+    ...msg,
     user: {
       role: "student",
     },

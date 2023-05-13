@@ -1,13 +1,14 @@
 import passport from "passport";
 import LocalStrategy from "passport-local";
-import User from "../models/user.model.js";
+import User from "../models/student.model.js";
 
 // Configure passport
 passport.use(
   new LocalStrategy(function (email, password, done) {
     // Lookup user in database
     console.log("hi");
-    User.findOne({ email: email }, function (err, user) {
+
+    User.findOne({ email }, function (err, user) {
       if (err) {
         console.log(err);
         return done(err);

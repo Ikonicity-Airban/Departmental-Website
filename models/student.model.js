@@ -1,4 +1,4 @@
-import { Schema, model, SchemaTypes } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
@@ -33,5 +33,5 @@ const UserSchema = new Schema(
 //   localField: "course",
 //   foreignField: "student",
 // });
-const User = model("User", UserSchema);
-export default User;
+const Student = model("Student", UserSchema);
+export default Student;
