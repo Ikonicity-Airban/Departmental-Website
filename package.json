@@ -5,10 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "jest server.js",
-    "dev": "nodemon server.js",
     "serve": "nodemon --ext *",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "build:css": "postcss assets/css/tailwind.css -o assets/css/compiled.tailwind.css -w"
   },
   "keywords": [],

@@ -1,18 +1,18 @@
 import express from "express";
 import livereload from "livereload";
 import connectLiveReload from "connect-livereload";
-import router from "./routes/index.js";
+import router from "./src/routes/index.js";
 import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
-import connect from "./utils/db.connect.js";
-import hbs_setup from "./utils/hbs.setup.js";
-import passport from "./utils/passport.js";
+import connect from "./src/utils/db.connect.js";
+import hbs_setup from "./src/utils/hbs.setup.js";
+import passport from "./src/utils/passport.js";
 import session from "express-session";
 import morgan from "morgan";
 import cors from "cors";
-import four_oh_four from "./middlewares/404.js";
-import errorHandlerMiddleware from "./middlewares/error-handler.js";
+import four_oh_four from "./src/middlewares/404.js";
+import errorHandlerMiddleware from "./src/middlewares/error-handler.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
