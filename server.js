@@ -74,11 +74,16 @@ app.use(router);
 //custom middleware
 app.use(four_oh_four);
 app.use(errorHandlerMiddleware);
+
+//server setup
+const port = process.env.PORT || 3000;
+
 async function serve() {
   await connect(process.env.MONGO_URI);
+
   //?server - up
-  app.listen(3000, () =>
-    console.log("app started on port http://localhost:3000/ ...")
+  app.listen(port, () =>
+    console.log(`app started on port http://localhost:${port}/ ...`)
   );
 }
 serve();
