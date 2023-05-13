@@ -1,12 +1,12 @@
 {
-  "name": "focus",
+  "name": "departmental-website",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "nodemon index.js",
     "serve": "nodemon --ext *",
-    "start": "nodemon server.js",
     "build:css": "postcss assets/css/tailwind.css -o assets/css/compiled.tailwind.css -w"
   },
   "keywords": [],
