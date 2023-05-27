@@ -1,12 +1,16 @@
-import mongoose from "mongoose";
+const { set, connect } = require("mongoose");
 
-export default async function connect(uri) {
-    try {
-        mongoose.set("strictQuery", false)
-        const { connection } = await mongoose.connect(uri);
-        console.log(`${connection.host} has connected to the ${connection.name} database sucessfully`)
-    } catch (error) {
-        console.error(error);
-        process.exit(1)
-    }
-}
+module.exports = async function connectDB(uri) {
+  try {
+    set("strictQuery", false);
+    const { connection } = await connect(
+      uri || "mongodb://127.0.0.1:27017/Departmental%20portal"
+    );
+    console.log(
+      `${connection.host} has connected to the ${connection.name} database successfully`
+    );
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+};

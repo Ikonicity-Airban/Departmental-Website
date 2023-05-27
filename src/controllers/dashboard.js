@@ -5,7 +5,9 @@ import renderPage, {
 
 export function studentDashboard(req, res) {
   console.log(res.locals);
-  renderPage(res, "dashboard", "dashboard", studentDashboardOptions, {
+  res.render("dashboard", {
+    layout: "dashboard",
+    ...studentDashboardOptions,
     ...res.locals,
   });
 }
