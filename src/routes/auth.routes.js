@@ -1,9 +1,13 @@
-import { Router } from "express";
-import { Login, RenderLogin } from "../controllers/auth.controller.js";
+const router = require("express").Router();
 
-const router = Router();
-router.route("/login").get(RenderLogin).post(Login);
+const {
+  Login,
+  CreateAccount,
+  Logout,
+} = require("../controllers/auth.controller");
 
-//export
-const authRouter = router;
-export default authRouter;
+router.post("/login", Login);
+router.post("/create-account/student", CreateAccount);
+router.post("/create-account/instructor", CreateAccount);
+router.get("/logout", Logout);
+module.exports = router;

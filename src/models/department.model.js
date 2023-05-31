@@ -1,14 +1,37 @@
-import mongoose from 'mongoose';
-
-const { Schema, model } = mongoose;
+const { Schema, model } = require("mongoose");
 
 // Define the department schema
-const departmentSchema = new Schema({
-    name: { type: String, required: true },
+const DepartmentSchema = new Schema(
+  {
+    name: { type: String, required: true, unique: true },
     description: { type: String },
     headOfDepartment: { type: String },
-    coursesOffered: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
-}, { timestamps: true });
+    coursesOffered: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
+    toObject: {
+      virtuals: true,
+    },
+  }
+);
 
-const Department = model('Department', departmentSchema)
-export default Department
+DepartmentSchema.virtual("students", {
+  ref: "Student",
+  localField: "_id",
+  foreignField: "department",
+  // count: true,
+});
+
+DepartmentSchema.virtual("instructors", {
+  ref: "Instructor",
+  localField: "_id",
+  foreignField: "department",
+});
+
+const Department = model("Department", DepartmentSchema);
+
+module.exports = Department;

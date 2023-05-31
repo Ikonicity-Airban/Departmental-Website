@@ -1,24 +1,20 @@
-import { Router } from "express";
-import {
-  createCourse,
-  deleteOneCourse,
-  getAllCourses,
-  getCoursesForDepartment,
-  getCoursesForStudent,
-  getOneCourse,
-  updateOneCourse,
-} from "../controllers/course.controller.js";
-const router = Router();
+const router = require("express").Router();
+const {
+  GetAllCourses,
+  CreateCourse,
+  GetOneCourse,
+  UpdateOneCourse,
+  DeleteOneCourse,
+} = require("../controllers/course.controller");
+const { authorizeRoles } = require("../middlewares/auth");
 
-router.route("/courses").get(getAllCourses).post(createCourse);
+router.route("/").post(authorizeRoles("admin", "instructor"), CreateCourse);
+
 router
-  .get("/courses/students/:studentId", getCoursesForStudent)
-  .get("/courses/departments/:deptId", getCoursesForDepartment);
-router
-  .route("courses/:courseId")
-  .get(getOneCourse)
-  .patch(updateOneCourse)
-  .delete(deleteOneCourse);
+  .route("/:courseId")
+  .get(GetOneCourse)
+  .patch(authorizeRoles("admin", "instructor"), UpdateOneCourse)
+  .delete(authorizeRoles("admin", "instructor"), DeleteOneCourse);
+
 //export
-const courseRouter = router;
-export default courseRouter;
+module.exports = router;

@@ -1,37 +1,52 @@
-import { Schema, model } from "mongoose";
+const { Schema, model } = require("mongoose");
+const { randomUUID } = require("node:crypto");
+const Department = require("./department.model");
+const User = require("./user.model");
 
-const UserSchema = new Schema(
+const StudentSchema = new Schema(
   {
-    // surname: String,
-    // student_passport: Buffer,
-    // name: {
-
-    //     firstname: String,
-    //     middlename: String,
-    // },
-    // reg_no: { type: String, unique: true, require: true },
-    email: String,
-    password: String,
-    course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
-    // sex: {
-    //     type: String,
-    //     enum: ['male', 'female']
-    // },
-    // home_town: String,
-    // mobile_phone: String,
-    // contact_address: String,
-    // year_of_graduation: Date,
-    // year_of_study: Date
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    student_passport: Buffer,
+    firstName: String,
+    lastName: String,
+    reg_no: {
+      type: String,
+      unique: true,
+      default: () => "afng-".concat(randomUUID().split("-")[1]),
+    },
+    department: {
+      type: Schema.Types.ObjectId,
+      ref: "Department",
+      require: true,
+    },
+    coursesOffered: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+    sex: {
+      type: String,
+      enum: ["male", "female"],
+    },
+    mobile_phone: String,
+    contact_address: String,
+    year_of_graduation: Date,
   },
   {
     timestamps: true,
   }
 );
 
-// UserSchema.virtual("course", {
-//   ref: "Course",
-//   localField: "course",
-//   foreignField: "student",
-// });
-const Student = model("Student", UserSchema);
-export default Student;
+StudentSchema.pre("save", async function () {
+  const department = await Department.findOne({ name: "Computer Science" });
+  if (!department) return;
+  this.department = department._id;
+});
+
+StudentSchema.pre("findOneAndRemove", async function (doc) {
+  console.log(this._id, doc);
+  const user = await User.findOneAndRemove(doc._id);
+  console.log("🚀 ~ file: student.model.js:48 ~ user:", user);
+});
+const Student = model("Student", StudentSchema);
+
+module.exports = Student;

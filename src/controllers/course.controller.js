@@ -1,38 +1,65 @@
-import Course from "../models/course.model.js";
-import renderPage from "../utils/renderer.helper.js";
+const { StatusCodes } = require("http-status-codes");
+const Course = require("../models/course.model");
+const { BadRequestError, NotFoundError } = require("../error");
 
-export async function createCourse(req, res) {
-  const course = await Course.find({});
+//Create a course
+async function CreateCourse(req, res) {
+  if (!req.body) throw new BadRequestError("No body provided");
+  const course = await Course.create({
+    ...req.body,
+  });
 
-  if (!course) {
-    return res.sendStatus(200);
-  }
+  if (!course) throw new Error("Internal Server Error");
 
-  renderPage(res, "course", "main", { msg: "CREATED" }, { title: "Courses" });
+  res.status(StatusCodes.CREATED).json(course);
 }
 
-export async function getAllCourses(req, res) {
-  res.status(200).json({ msg: "All courses" });
-}
-export async function getCoursesForStudent(req, res) {
-  const { studentId } = req.params;
-  res.status(200).json({ msg: "All courses", studentId });
+// Get all available courses
+async function GetAllCourses(req, res) {
+  const courses = await Course.find({}).populate("department", "name").lean();
+  res.status(StatusCodes.OK).json({ courses, count: courses.length });
 }
 
-export async function getOneCourse(req, res) {
+// Get courses for a Student
+async function GetOneCourse(req, res) {
   const { courseId } = req.params;
-  res.status(200).json({ msg: "All courses", courseId });
-}
-export async function getCoursesForDepartment(req, res) {
-  const { deptId } = req.params;
-  res.status(200).json({ msg: "All courses", deptId });
+  const course = await Course.findById(courseId)
+    .populate(["students", "instructors"])
+    .lean();
+  if (!course) throw new NotFoundError("Course Not found");
+  res.status(StatusCodes.OK).json(course);
 }
 
-export async function updateOneCourse(req, res) {
+//update courses
+async function UpdateOneCourse(req, res) {
   const { courseId } = req.params;
-  res.status(200).json({ msg: "All courses", courseId });
+  if (!req.body) throw new BadRequestError("Please provide a valid query");
+  const course = await Course.findByIdAndUpdate(
+    courseId,
+    {
+      ...req.body,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  ).lean();
+  if (!course) throw new NotFoundError("Course Not found");
+  res.status(StatusCodes.OK).json(course);
 }
-export async function deleteOneCourse(req, res) {
-  const { courseId } = req.params.id;
-  res.status(200).json({ msg: "All courses", courseId });
+
+//Delete a course
+async function DeleteOneCourse(req, res) {
+  const { courseId } = req.params;
+  const course = await Course.findByIdAndDelete(courseId);
+  if (!course) throw new NotFoundError("Course Not found");
+  res.status(StatusCodes.GONE).json({ msg: "Course Deleted" });
 }
+
+module.exports = {
+  CreateCourse,
+  UpdateOneCourse,
+  DeleteOneCourse,
+  GetOneCourse,
+  GetAllCourses,
+};

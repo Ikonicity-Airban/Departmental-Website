@@ -1,40 +1,83 @@
-import Department from "../models/department.model.js";
-import renderPage from "../utils/renderer.helper.js";
+const { StatusCodes } = require("http-status-codes");
+const { BadRequestError } = require("../error");
+const Department = require("../models/department.model");
+const Student = require("../models/student.model");
+const Instructor = require("../models/instructor.model");
 
-export async function createdepartment(req, res) {
-  const department = await Department.find({});
+//Creates only one department
+async function CreateDepartment(req, res) {
+  const { name, headOfDepartment, description } = req.body;
 
-  if (!department) {
-    return res.sendStatus(200);
+  if (!name || !headOfDepartment || !description) {
+    throw new BadRequestError("invalid fields");
   }
 
-  renderPage(
-    res,
-    "department",
-    "main",
-    { msg: "CREATED" },
-    { title: "departments" }
+  const departmentCount = (await Department.find({})).length;
+
+  if (departmentCount > 0)
+    throw new BadRequestError(
+      "Department Already Exist Delete it first or update it"
+    );
+  const department = await Department.create({
+    name,
+    headOfDepartment,
+    description,
+  });
+
+  res.status(StatusCodes.CREATED).json({ department });
+}
+
+//Get the one Department info
+async function GetDepartmentInfo(req, res) {
+  const department = await Department.findOne({})
+    .populate("instructors", "-__v -createdAt -updatedAt")
+    .populate("students", "-__v -createdAt -updatedAt")
+    .lean();
+  res.status(StatusCodes.OK).json({ department });
+}
+
+//get Students in current department
+async function GetStudentInDepartment(req, res) {
+  const students = await Department.findOne({ name: "Computer Science" })
+    .select("students name")
+    .populate("students", "-__v -createdAt -updatedAt")
+    .lean();
+  res.status(StatusCodes.OK).json(students);
+}
+
+async function GetInstructorsInDepartment(req, res) {
+  const instructors = await Department.findOne({ name: "Computer Science" })
+    .select("instructors name")
+    .populate("instructors", "-__v -createdAt -updatedAt")
+    .lean();
+  res.status(StatusCodes.OK).json(instructors);
+}
+
+async function UpdateDepartmentInfo(req, res) {
+  if (!req.body || req.body.name)
+    throw new BadRequestError("Invalid Field to be updated");
+
+  const department = await Department.findOneAndUpdate(
+    { name: "Computer Science" },
+    { ...req.body },
+    {
+      runValidators: true,
+      new: true,
+    }
   );
+  res.status(StatusCodes.OK).json({ department });
 }
 
-export async function getAlldepartments(req, res) {
-  res.status(200).json({ msg: "All departments" });
-}
-export async function getStudentInDepartment(req, res) {
-  const { studentId } = req.param;
-  res.status(200).json({ msg: "All departments", studentId });
+async function DeleteDepartmentInfo(req, res) {
+  await Department.deleteOne({ name: "Computer Science" });
+  res.status(StatusCodes.GONE).json({ msg: "Otilo" });
 }
 
-export async function getOnedepartment(req, res) {
-  const { departmentId } = req.param;
-  res.status(200).json({ msg: "All departments", departmentId });
-}
-
-export async function UpdateOnedepartment(req, res) {
-  const { departmentId } = req.param;
-  res.status(200).json({ msg: "All departments", departmentId });
-}
-export async function DeleteOnedepartment(req, res) {
-  const { departmentId } = req.param;
-  res.status(200).json({ msg: "All departments", departmentId });
-}
+module.exports = {
+  CreateDepartment,
+  GetDepartmentInfo,
+  DeleteDepartmentInfo,
+  UpdateDepartmentInfo,
+  GetStudentInDepartment,
+  GetInstructorsInDepartment,
+};

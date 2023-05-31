@@ -1,10 +1,23 @@
-import { Schema, model } from "mongoose";
+const { Schema, model } = require("mongoose");
+const Department = require("./department.model");
 
-const instructorSchema = new Schema({
+const InstructorSchema = new Schema(
+  {
+    user: { type: Schema.Types.ObjectId, ref: "User" },
     name: { type: String },
-    email: { type: String },
-    coursesTeaching: [{ type: Schema.Types.ObjectId, ref: 'Course' }]
-}, { timestamps: true });
+    coursesTeaching: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+    department: { type: Schema.Types.ObjectId, ref: "Department" },
+  },
+  { timestamps: true }
+);
 
-const Instructor = model('Instructor', instructorSchema)
-export default Instructor
+InstructorSchema.pre("save", async function () {
+  const department = Department.findOne({ name: "Computer Science" });
+  if (department) {
+    this.department = department._id;
+  }
+});
+
+const Instructor = model("Instructor", InstructorSchema);
+
+module.exports = Instructor;

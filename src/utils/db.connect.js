@@ -1,4 +1,5 @@
 const { set, connect } = require("mongoose");
+const logger = require("./logger");
 
 module.exports = async function connectDB(uri) {
   try {
@@ -6,7 +7,7 @@ module.exports = async function connectDB(uri) {
     const { connection } = await connect(
       uri || "mongodb://127.0.0.1:27017/Departmental%20portal"
     );
-    console.log(
+    logger.info(
       `${connection.host} has connected to the ${connection.name} database successfully`
     );
   } catch (error) {
